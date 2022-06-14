@@ -1,1 +1,1 @@
-# Hello VitePress Simon
+# Rule of thump documentation
