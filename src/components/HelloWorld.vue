@@ -1,9 +1,19 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-defineProps<{ msg: string }>()
-
-const count = ref(0)
+export default defineComponent({
+  props:{
+    msg: { type: String, required: true },
+  },
+  data: () => ({
+    count: 0
+  }),
+  methods: {
+    add(){
+      this.count++;
+    }
+  }
+})
 </script>
 
 <template>
@@ -26,7 +36,7 @@ const count = ref(0)
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
   </p>
 
-  <button type="button" @click="count++">count is: {{ count }}</button>
+  <button type="button" @click="add">count is: {{ count }}</button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
