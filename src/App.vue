@@ -1,21 +1,25 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import Hero from './components/header/Hero.vue'
 export default defineComponent({
+  name: 'App',
+  components:{
+    Hero
+  }
 })
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <hero />
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  height: 100%;
+}
+body{
+  margin: 0;
 }
 </style>

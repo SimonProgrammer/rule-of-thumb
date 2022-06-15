@@ -1,3 +1,14 @@
 {
-  "title": "testing"
+  "hero_title_site": "Rule of thumb.",
+  "hero_bottom_closing_label": "closing in",
+  "hero_bottom_days_label": "days",
+  "hero_menu_items_list": ["Past Trials", "How It Works", "Login / Sign Up"],
+  "hero_menu_item_past_trial": "Past Trials",
+  "hero_menu_item_how_works": "How It Works",
+  "hero_menu_item_login_signup": "Login / Sign Up",
+  "hero_feature_subtitle": "What’s your opinion on",
+  "hero_feature_title": "Pope Francis?",
+  "hero_feature_description": "He’s talking tough on clergy sexual abuse, or is he just another pervert protector? (thumbs down) or a true pedophile punishing pontiff? (thumbs up)",
+  "hero_feature_veredict": "What’s Your Veredict?",
+  "hero_feature_more_information": "More information"
 }
