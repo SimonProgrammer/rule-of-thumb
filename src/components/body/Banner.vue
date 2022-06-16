@@ -32,6 +32,7 @@ export default defineComponent({
     color: var(--color-black-1);
     background-color: var(--color-silver-1);
     grid-template-rows: repeat(2, auto);
+    row-gap: 0.25rem;
 }
 .banner__page-subtitle,
 .banner__page-description{
@@ -68,7 +69,7 @@ export default defineComponent({
 
 @media screen and (min-width: 0) {
     .banner__page{
-        margin: 1.5rem 1rem;
+        margin: 1.5rem 0;
         padding: 0.75rem;
         grid-template-columns: 35% 60%;
         column-gap: 5%;
@@ -83,12 +84,9 @@ export default defineComponent({
         font-size: 3.75vw;
     }
 }
-@media screen and (min-width: 414px) {
-    
-}
 @media screen and (min-width: 768px) {
     .banner__page{
-        margin: 1.75rem 1.25rem;
+        margin: 1.75rem 0;
         padding: 1rem;
         grid-template-columns: 25% 73%;
         column-gap: 2%;
@@ -105,7 +103,7 @@ export default defineComponent({
 }
 @media screen and (min-width: 1024px) {
     .banner__page{
-        margin: 2.25rem 1.75rem;
+        margin: 2.25rem 0;
         grid-template-columns: 22% 76%;
     }
     .banner__page-subtitle{
@@ -120,8 +118,7 @@ export default defineComponent({
 }
 @media screen and (min-width: 1280px) {
     .banner__page{
-        width: 78vw;
-        margin: 2.25rem auto;
+        margin: 2.25rem 0;
         grid-template-columns: 15% 78% 5%;
         column-gap: 1%;
     }
@@ -140,9 +137,6 @@ export default defineComponent({
     }
 }
 @media screen and (min-width: 1536px) {
-    .banner__page{
-        width: 72vw;
-    }
     .banner__page-subtitle{
         font-size: 0.95vw;
     }

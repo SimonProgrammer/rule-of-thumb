@@ -11,13 +11,6 @@
     --color-black-1: #464646;
     --color-white: rgba(255, 255, 255, 1);
     --color-silver-1: #EBEBEB;
-    --zero: 0px;
-    --sm: 320px;
-    --xs: 375px;
-    --md: 768px;
-    --lg: 1024px;
-    --xl: 1280px;
-    --xxl: 1536px;
 }
 
 @font-face {

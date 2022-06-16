@@ -3,12 +3,12 @@ import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import Hero from './components/header/Hero.vue'
-import Banner from './components/body/Banner.vue'
+import BodyPage from './components/body/BodyPage.vue'
 export default defineComponent({
   name: 'App',
   components:{
     Hero,
-    Banner
+    BodyPage
   },
   setup(){
     const { locale, t } = useI18n({
@@ -24,7 +24,7 @@ export default defineComponent({
 
 <template>
   <hero />
-  <banner />
+  <body-page />
 </template>
 
 <style>

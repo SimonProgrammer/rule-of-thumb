@@ -13,5 +13,8 @@
   "hero_feature_more_information": "More information",
   "banner_label_speak_out": "Speak out. Be heard.",
   "banner_label_be_counted": "Be counted",
-  "banner_label_rule_of_thumb_description": "Rule of Thumb is a crowd sourced court of public opinion where anyone and everyone can speak out and speak freely. It’s easy: You share your opinion, we analyze and put the data in a public report."
+  "banner_label_rule_of_thumb_description": "Rule of Thumb is a crowd sourced court of public opinion where anyone and everyone can speak out and speak freely. It’s easy: You share your opinion, we analyze and put the data in a public report.",
+  "vote_label_title_previous": "Previous Rulings",
+  "vote_label_list_type": "List",
+  "vote_label_grid_type": "Grid"
 }
