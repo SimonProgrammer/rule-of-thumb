@@ -9,16 +9,14 @@ export default defineComponent({
       inheritLocale: true
     });
 
-    let selected: String = '';
+    let selectedKey: String = 'list';
+    let selectedLabel: String = '';
 
-    return { locale, t, selected };
+    return { locale, t, selectedKey, selectedLabel };
   },
   data:() => ({
     showList: false
   }),
-  created(){
-    this.prepareSelectedItem();
-  },
   computed: {
     selectItem(){
         const { showList }:{showList: Boolean} = this;
@@ -26,17 +24,22 @@ export default defineComponent({
         return `vote__header-item vote__header-item--selected ${classOpen}`;
     }
   },
+  beforeMount(){
+    this.prepareSelectedItem();
+  },    
   methods:{
     prepareSelectedItem(){
-        this.selected = this.t('vote_label_list_type');
+        this.selectedLabel = this.t('vote_label_list_type.label');
     },
     changeStatusList(){
         const { showList } = this;
         this.showList = !showList;
     },
-    setSelectItem(type: String){
-        this.selected = type;
+    setSelectItem(key: string, label: string){
+        this.selectedLabel = label;
+        this.selectedKey = key;
         this.changeStatusList();
+        this.$emit('selected', key);
     }
   }
 })
@@ -49,18 +52,18 @@ export default defineComponent({
             <article 
                 :className="selectItem"
                 @click="changeStatusList">
-                <span>{{ selected }}</span>
+                <span>{{ selectedLabel }}</span>
             </article>
             <div v-if="showList" className="vote__header-list">
                 <article 
                     className="vote__header-item"
-                    @click="setSelectItem(t('vote_label_list_type'))">
-                    <span>{{ t('vote_label_list_type') }}</span>
+                    @click="setSelectItem(t('vote_label_list_type.key'), t('vote_label_list_type.label'))">
+                    <span>{{ t('vote_label_list_type.label') }}</span>
                 </article>
                 <article 
                     className="vote__header-item"
-                    @click="setSelectItem(t('vote_label_grid_type'))">
-                    <span>{{ t('vote_label_grid_type') }}</span>
+                    @click="setSelectItem(t('vote_label_grid_type.key'), t('vote_label_grid_type.label'))">
+                    <span>{{ t('vote_label_grid_type.label') }}</span>
                 </article>
             </div>
         </div>
@@ -92,6 +95,7 @@ export default defineComponent({
 .vote__header-list{
     position: absolute;
     z-index: 10;
+    background-color: var(--color-white);
 }
 .vote__header-item--selected{
     display: grid;
@@ -126,13 +130,10 @@ export default defineComponent({
 
 @media screen and (min-width: 0) {
     .vote__header-title{
-        font-size: 7.5vw;
+        font-size: 24px;
     }
 }
 @media screen and (min-width: 768px) {
-    .vote__header-title{
-        font-size: 3.75vw;
-    }
     .vote__header-select{
         display: block;
     }
@@ -141,7 +142,7 @@ export default defineComponent({
         padding: 0.65rem 0;
     }
     .vote__header-item > *{
-        font-size: 2.25vw;
+        font-size: 15px;
     }
 }
 @media screen and (min-width: 1024px) {
@@ -151,26 +152,23 @@ export default defineComponent({
 }
 @media screen and (min-width: 1280px) {
     .vote__header-title{
-        font-size: 2.5vw;
+        font-size: 35px;
     }
     .vote__header-item{
         padding: 0.5rem 0;
         width: 12rem;
     }
     .vote__header-item > *{
-        font-size: 1.5vw;
+        font-size: 17px;
     }
 
 }
 @media screen and (min-width: 1536px) {
-   .vote__header-title{
-        font-size: 2vw;
-    }
     .vote__header-item{
         padding: 0.35rem 0;
     }
-    .vote__header-item > *{
-        font-size: 1.25vw;
+    .vote__header-item{
+        width: 11rem;
     }
 }
 </style>

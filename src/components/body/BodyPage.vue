@@ -2,12 +2,22 @@
 import { defineComponent } from 'vue'
 import Banner from './Banner.vue'
 import VoteHeader from './VoteHeader.vue'
+import VoteList from './VoteList.vue'
 
 export default defineComponent({
   name: 'BodyPage',
   components:{
     Banner,
-    VoteHeader
+    VoteHeader,
+    VoteList
+  },
+  data:() => ({
+    theme: 'list'
+  }),
+  methods:{
+    changeTheme(theme: string){
+        this.theme = theme;
+    }
   }
 })
 </script>
@@ -15,7 +25,8 @@ export default defineComponent({
 <template>
     <section className="body__page">
         <banner/>
-        <vote-header/>
+        <vote-header @selected="changeTheme"/>
+        <vote-list :theme="theme"/>
     </section>
 </template>
 

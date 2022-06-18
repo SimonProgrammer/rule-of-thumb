@@ -41,7 +41,7 @@ export default defineComponent({
             </article>
             <article className="feature__card-dislike">
                 <img 
-                    src="@/assets/icons/thumbs-up.svg" 
+                    src="@/assets/icons/thumbs-down.svg" 
                     alt="search button"
                     className="navbar__thumb-icon" 
                 />
