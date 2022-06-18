@@ -3,13 +3,15 @@ import { defineComponent } from 'vue'
 import Banner from './Banner.vue'
 import VoteHeader from './VoteHeader.vue'
 import VoteList from './VoteList.vue'
+import EnrollCandidate from './EnrollCandidate.vue'
 
 export default defineComponent({
   name: 'BodyPage',
   components:{
     Banner,
     VoteHeader,
-    VoteList
+    VoteList,
+    EnrollCandidate
   },
   data:() => ({
     theme: 'list'
@@ -24,9 +26,10 @@ export default defineComponent({
 
 <template>
     <section className="body__page">
-        <banner/>
-        <vote-header @selected="changeTheme"/>
-        <vote-list :theme="theme"/>
+        <banner />
+        <vote-header @selected="changeTheme" />
+        <vote-list :theme="theme" />
+        <enroll-candidate />
     </section>
 </template>
 

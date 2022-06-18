@@ -11,8 +11,10 @@
     --color-light-background: rgba(255, 255, 255, .4);
     --color-lighter-background: rgba(255, 255, 255, .8);
     --color-black-1: #464646;
+    --color-black-2: #333333;
     --color-white: rgba(255, 255, 255, 1);
     --color-silver-1: #EBEBEB;
+    --color-transparent: transparent;
 }
 
 @font-face {
