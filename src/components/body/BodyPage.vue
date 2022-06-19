@@ -1,13 +1,22 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from '@/stores/person'
 import Banner from './Banner.vue'
 import VoteHeader from './VoteHeader.vue'
 import VoteList from './VoteList.vue'
 import EnrollCandidate from './EnrollCandidate.vue'
 import FooterPage from './FooterPage.vue'
+import personsManagment from '@/mixins/personsManagment'
 
 export default defineComponent({
   name: 'BodyPage',
+  mixins: [personsManagment],
+  setup() {
+    const store = useStore()
+    return {
+      store,
+    }
+  },
   components:{
     Banner,
     VoteHeader,
@@ -18,9 +27,19 @@ export default defineComponent({
   data:() => ({
     theme: 'list'
   }),
+  beforeMount(){
+    this.getListPersons();
+  },
   methods:{
     changeTheme(theme: string){
         this.theme = theme;
+    },
+    async getListPersons(){
+        const list = await this.getPersons();
+        const { store } = this;
+        store.$patch({
+            list
+        });
     }
   }
 })

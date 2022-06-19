@@ -14,22 +14,45 @@ export default defineComponent({
         default: () => {}
     }
   },
+  data:() => ({
+    selectType: '',
+    tryAgain: false
+  }),
   computed:{
     classItem(){
         const { theme }:{ theme: String } = this;
         return `vote__item-${theme}`;
     },
     leftPercentage(){
-        const {info: { goodVote, badVote } }  = this;
-        return `${goodVote / (goodVote + badVote) * 100}%`;
+        const {info: { votes: { positive, negative } } }  = this;
+        const result = (positive / (positive + negative) * 100).toFixed(1);
+        return `${result}%`;
     },
     rightPercentage(){
-        const {info: { goodVote, badVote } }  = this;
-        return `${badVote / (goodVote + badVote) * 100}%`;
+        const {info: { votes: { positive, negative } } }  = this;
+        const result = (negative / (positive + negative) * 100).toFixed(1);
+        return `${result}%`;
     },
     imageClass(){
         const { theme }:{ theme: String } = this;
         return `vote__item-bg vote__item-bg--${theme}`;
+    },
+    positiveClass(){
+        const { selectType } : { selectType : string } = this;
+        return selectType === 'positive' ? 'vote__thumb vote__thumb--up vote__thumb--selected' : 'vote__thumb vote__thumb--up';
+    },
+    negativeClass(){
+        const { selectType } : { selectType : string } = this;
+        return selectType === 'negative' ? 'vote__thumb vote__thumb--down vote__thumb--selected' : 'vote__thumb vote__thumb--down';
+    },
+    timeAgo(){
+        const { info: { lastUpdated } } = this;
+        return this.calcDateTimeAgo(lastUpdated);
+    },
+    categoryPerson(){
+        const { info: { category } } = this;
+        const lower = category.toLowerCase();
+        return category.charAt(0).toUpperCase() + lower.slice(1);
     }
   },
   setup(){
@@ -39,18 +62,61 @@ export default defineComponent({
 
     return { locale, t };
   },
+  methods:{
+    selectVoteType(type: string){
+        this.selectType = type;
+    },
+    sendVote(){
+        const { info: { code }, selectType: type, tryAgain } = this;
+        if(!tryAgain){
+            this.$emit('vote',{
+                code,
+                type
+            });
+            this.tryAgain = true;
+        }
+        else{
+            this.tryAgain = false;
+        }
+    },
+    calcDateTimeAgo(timestamp: Date){
+        let value;
+        const diff = (new Date().getTime() - new Date(timestamp).getTime()) / 1000;
+        const minutes = Math.floor(diff / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        const months = Math.floor(days / 30);
+        const years = Math.floor(months / 12);
+        const rtf = new Intl.RelativeTimeFormat('en', { numeric: "auto" });
+
+        if (years > 0) {
+            value = rtf.format(0 - years, "year");
+        } else if (months > 0) {
+            value = rtf.format(0 - months, "month");
+        } else if (days > 0) {
+            value = rtf.format(0 - days, "day");
+        } else if (hours > 0) {
+            value = rtf.format(0 - hours, "hour");
+        } else if (minutes > 0) {
+            value = rtf.format(0 - minutes, "minute");
+        } else {
+            value = rtf.format(0 - diff, "second");
+        }
+        return value;
+    }
+  }
 })
 </script>
 
 <template>
     <div :className="classItem">
-        <img :className="imageClass" :src="theme === 'grid' ? info.imageGrid : info.imageList" :alt="info.name" />
+        <img :className="imageClass" :src="theme === 'grid' ? info.pictureGrid : info.pictureList" :alt="info.name" />
         <article v-if="theme === 'list'" className="vote__item-gradient"></article>
         <div className="vote__item-header">
-            <template v-if="info.goodVote > info.badVote">
+            <template v-if="info.votes.positive > info.votes.negative">
                 <article className="vote__thumb vote__thumb--up">
                     <img 
-                        src="@/assets/icons/thumbs-up.svg" 
+                        src="@/assets/icons/thumbs-up.svg"
                         alt="thump up icon"
                         className="vote__thumb-icon"
                     />
@@ -65,26 +131,31 @@ export default defineComponent({
                     />
                 </article>
             </template>
-            <span className="vote__item-title">{{ info.title }}</span>
+            <span className="vote__item-title">{{ info.name }}</span>
         </div>
         <article className="vote__item-description">{{ info.description }}</article>
-        <article className="vote__item-status">1 month ago in Entertainment</article>
+        <article className="vote__item-status">{{ tryAgain ? t('vote_list_cta_thanks')  : `${timeAgo} in ${categoryPerson}`}}</article>
         <div className="vote__item-cta">
-            <article className="vote__thumb vote__thumb--up">
+            <article v-if="!tryAgain" :className="positiveClass" @click="selectVoteType('positive')">
                 <img 
                     src="@/assets/icons/thumbs-up.svg" 
                     alt="thump up icon"
                     className="vote__thumb-icon"
                 />
             </article>
-            <article className="vote__thumb vote__thumb--down">
+            <article v-if="!tryAgain" :className="negativeClass" @click="selectVoteType('negative')">
                 <img 
                     src="@/assets/icons/thumbs-down.svg" 
                     alt="thump up down"
                     className="vote__thumb-icon"
                 />
             </article>
-            <button className="vote__button">{{ t('vote_list_cta_vote_now') }}</button>
+            <button 
+                className="vote__button" 
+                @click="sendVote"
+                :disabled="selectType == ''">
+                {{ tryAgain ? t('vote_list_cta_vote_again') :  t('vote_list_cta_vote_now') }}
+            </button>
         </div>
         <footer className="vote__item-footer">
             <div className="vote__footer-left" :style="{flexBasis: leftPercentage}"></div>
@@ -163,12 +234,14 @@ export default defineComponent({
     border: 1px solid var(--color-white);
     background-color: var(--color-darker-background);
     color: var(--color-white);
+    cursor: pointer;
 }
 
 .vote__thumb{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .vote__thumb--up{
@@ -176,6 +249,10 @@ export default defineComponent({
 }
 .vote__thumb--down{
     background-color: var(--color-yellow-negative);
+}
+
+.vote__thumb--selected{
+    border: 1px solid var(--color-white);
 }
 
 .vote__item-status{

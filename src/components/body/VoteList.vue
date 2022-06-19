@@ -1,9 +1,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from '@/stores/person'
 import VoteItem from './VoteItem.vue'
+import personsManagment from '@/mixins/personsManagment'
 
 export default defineComponent({
   name: 'VoteList',
+  mixins: [personsManagment],
+  setup() {
+    const store = useStore()
+    return {
+      store,
+    }
+  },
   props: {
     theme: {
         type: String,
@@ -14,35 +23,6 @@ export default defineComponent({
     VoteItem
   },
   data:() => ({
-    list: [
-        {
-            title: 'Cristina Fernández de Kirchner',
-            description: 'Vestibulum diam ante, porttitor a odio eget, rhoncus.  Vestibulum diam ante, porttitor a odio eget, rhoncus.',
-            lastDate: new Date(),
-            goodVote: 10,
-            badVote: 15,
-            imageGrid: 'https://ik.imagekit.io/mz4piqzisj/grid/kanye_kBaWDp3tb.svg?ik-sdk-version=javascript-1.4.3&updatedAt=1655354729750',
-            imageList: 'https://ik.imagekit.io/mz4piqzisj/list/kanye-small__1__g7Ts7rd0p.svg?ik-sdk-version=javascript-1.4.3&updatedAt=1655584472822'
-        },
-        {
-            title: 'Kanye west',
-            description: 'Vestibulum diam ante, porttitor a odio eget, rhoncus.  Vestibulum diam ante, porttitor a odio eget, rhoncus.',
-            lastDate: new Date(),
-            goodVote: 10,
-            badVote: 15,
-            imageGrid: 'https://ik.imagekit.io/mz4piqzisj/grid/kanye_kBaWDp3tb.svg?ik-sdk-version=javascript-1.4.3&updatedAt=1655354729750',
-            imageList: 'https://ik.imagekit.io/mz4piqzisj/list/kanye-small__1__g7Ts7rd0p.svg?ik-sdk-version=javascript-1.4.3&updatedAt=1655584472822'
-        },
-        {
-            title: 'Kanye west',
-            description: 'Vestibulum diam ante, porttitor a odio eget, rhoncus.  Vestibulum diam ante, porttitor a odio eget, rhoncus.',
-            lastDate: new Date(),
-            goodVote: 10,
-            badVote: 15,
-            imageGrid: 'https://ik.imagekit.io/mz4piqzisj/grid/kanye_kBaWDp3tb.svg?ik-sdk-version=javascript-1.4.3&updatedAt=1655354729750',
-            imageList: 'https://ik.imagekit.io/mz4piqzisj/list/kanye-small__1__g7Ts7rd0p.svg?ik-sdk-version=javascript-1.4.3&updatedAt=1655584472822'
-        },
-    ],
     screen: ''
   }),
   computed:{
@@ -53,6 +33,9 @@ export default defineComponent({
     themeConfig(){
         const { screen, theme } : { screen:String, theme: String } = this;
         return screen === 'mobile' ? `grid` : theme;
+    },
+    list(){
+        return this.store.list;
     }
   },
   created(){
@@ -65,6 +48,14 @@ export default defineComponent({
   methods:{
     changeStatus(){
         this.screen = window.innerWidth < 768 ? 'mobile' : 'desktop'
+    },
+    async sendVote(data: any){
+        await this.sendVoteByPerson(data); 
+        const list = await this.getPersons();
+        const { store } = this;
+        store.$patch({
+            list
+        });
     }
   }
 })
@@ -78,6 +69,7 @@ export default defineComponent({
                 :key="index" 
                 :info="item" 
                 :theme="themeConfig" 
+                @vote="sendVote"
             />
         </template>
     </section>
