@@ -26,5 +26,9 @@
   "vote_list_cta_vote_now": "Vote Now",
   "vote_list_cta_vote_again": "Vote Again",
   "enroll_candidate_label_add": "Is there anyone else you would want us to add?",
-  "enroll_candidate_label_submit": "Submit a name"
+  "enroll_candidate_label_submit": "Submit a name",
+  "footer_page_label_terms_conditions": "Terms and Conditions",
+  "footer_page_label_privacy_policy": "Privacy Policy",
+  "footer_page_label_contact_us": "Contact Us",
+  "footer_page_label_follow_us": "Follow us"
 }

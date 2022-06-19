@@ -52,17 +52,20 @@ export default defineComponent({
     }
     .enroll__candidate-button{
         font-size: 1rem;
-        padding: 0.75rem 0;
+        padding: 0.75rem ;
+        width: 100%;
     }
 }
 @media screen and (min-width: 768px) {
     .enroll__candidate{
         flex-direction: row;
         padding: 1.5rem 1.75rem;
+        background-image: url(@/assets/images/people-bg-desktop.svg);
     }
     .enroll__candidate-button{
         font-size: 1.3rem;
         padding: 0.75rem 1.8rem;
+        width: auto;
     }
 }
 @media screen and (min-width: 1024px) {

@@ -4,6 +4,7 @@ import Banner from './Banner.vue'
 import VoteHeader from './VoteHeader.vue'
 import VoteList from './VoteList.vue'
 import EnrollCandidate from './EnrollCandidate.vue'
+import FooterPage from './FooterPage.vue'
 
 export default defineComponent({
   name: 'BodyPage',
@@ -11,7 +12,8 @@ export default defineComponent({
     Banner,
     VoteHeader,
     VoteList,
-    EnrollCandidate
+    EnrollCandidate,
+    FooterPage
   },
   data:() => ({
     theme: 'list'
@@ -30,6 +32,7 @@ export default defineComponent({
         <vote-header @selected="changeTheme" />
         <vote-list :theme="theme" />
         <enroll-candidate />
+        <footer-page />
     </section>
 </template>
 
