@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from '@/stores/person'
+import { useStore } from '../../stores/person'
 import VoteItem from './VoteItem.vue'
-import personsManagment from '@/mixins/personsManagment'
+import personsManagment from '../../mixins/personsManagment'
 
 export default defineComponent({
   name: 'VoteList',
