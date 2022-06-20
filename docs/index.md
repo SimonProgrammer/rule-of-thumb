@@ -1,6 +1,6 @@
 # Summary
 
-![An image](./rule_of_thumb_banner.png)
+![An image](https://ik.imagekit.io/mz4piqzisj/documentation/rule_of_thumb_banner_CglXnun80.png?ik-sdk-version=javascript-1.4.3&updatedAt=1655726612378)
 
 **Rule of Thumb** is a crowd sourced court of public opinion where anyone and everyone can speak out and speak freely. It’s easy: You share your opinion, we analyze and put the data in a public report. 
 
