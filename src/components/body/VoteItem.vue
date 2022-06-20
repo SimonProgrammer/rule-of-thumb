@@ -74,6 +74,7 @@ export default defineComponent({
                 type
             });
             this.tryAgain = true;
+            this.selectVoteType('');
         }
         else{
             this.tryAgain = false;
@@ -153,7 +154,7 @@ export default defineComponent({
             <button 
                 className="vote__button" 
                 @click="sendVote"
-                :disabled="selectType == ''">
+                :disabled="selectType == '' && !tryAgain">
                 {{ tryAgain ? t('vote_list_cta_vote_again') :  t('vote_list_cta_vote_now') }}
             </button>
         </div>
@@ -435,9 +436,8 @@ export default defineComponent({
 }
 @media screen and (min-width: 1024px) {
     .vote__item-list .vote__item-bg{
-        width: auto;
-        object-position: initial;
-        object-fit: cover;
+        width: 25%;
+        object-position: top;
     }
     .vote__item-list .vote__item-gradient{
         width: 95%;
@@ -457,8 +457,17 @@ export default defineComponent({
     .vote__item-list .vote__item-description{
         margin-bottom: 0.75rem;
     }
+    .vote__item-list .vote__item-bg{
+        width: 20%;
+        object-position: top;
+    }
 }
 @media screen and (min-width: 1536px) {
-    
+    .vote__item-list .vote__item-header{
+        margin: 1.5rem 0 1.75rem 0;
+    }
+    .vote__item-list .vote__item-description{
+        margin-bottom: 1.5rem;
+    }
 }
 </style>
